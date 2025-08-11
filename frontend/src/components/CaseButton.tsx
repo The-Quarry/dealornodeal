@@ -22,11 +22,13 @@ export function CaseButton({ id, amount, opened, isPlayer, onClick }: Props) {
   // <= £9,999: largest, £10k–£750k: medium, £1,000,000: smallest
   let amountClass = "text-2xl sm:text-3xl";      // £0–£4,999
   if (amount >= 1_000_000) {
-    amountClass = "text-sm sm:text-lg";          // £1,000,000
+    amountClass = "text-sm sm:text-lg";          // £1,000,000 (smallest)
+  } else if (amount >= 100_000) {
+    amountClass = "text-base sm:text-xl";        // £100k–£750k (now a bit smaller)
   } else if (amount >= 10_000) {
-    amountClass = "text-lg sm:text-2xl";         // £10k–£750k
+    amountClass = "text-lg sm:text-2xl";         // £10k–£99,999
   } else if (amount >= 5_000) {
-    amountClass = "text-xl sm:text-3xl";         // £5k–£9,999 (smaller on mobile)
+    amountClass = "text-xl sm:text-3xl";         // £5k–£9,999
   }
 
   const aria = opened ? `Case ${id} contains ${label}` : `Open case ${id}`;

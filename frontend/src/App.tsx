@@ -26,6 +26,10 @@ export default function App(){
   const [leaderboard, setLeaderboard] = useState<ScoreRow[]>([])
   const [startTime] = useState<number>(() => Date.now())
   const [resetNonce, setResetNonce] = useState(0);
+  useEffect(() => {
+    document.title = "Deal or No Deal by The Quarry";
+  }, []);
+  
   function handleSwapCases() {
     const other = cases.find(x => !x.opened && x.id !== playerCaseId);
     if (other) {

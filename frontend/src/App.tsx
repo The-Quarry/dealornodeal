@@ -25,6 +25,14 @@ export default function App(){
   const [dealTaken, setDealTaken] = useState<boolean | null>(null)
   const [leaderboard, setLeaderboard] = useState<ScoreRow[]>([])
   const [startTime] = useState<number>(() => Date.now())
+  function handleSwapCases() {
+    const other = cases.find(x => !x.opened && x.id !== playerCaseId);
+    if (other) {
+      setPlayerCaseId(other.id);
+      try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch {}
+    }
+  }
+  
 
   async function fetchLeaderboard(){
     try {
@@ -59,6 +67,7 @@ export default function App(){
   )
   const playerCase = useMemo(() => cases.find((c) => c.id === playerCaseId) || null, [cases, playerCaseId])
   const gameOver = dealTaken !== null || (playerCase && unopenedCount === 0)
+  const canSwapFinalTwo = !!playerCase && unopenedCount === 1 && offer === null;
 
   useEffect(() => {
     if (playerCaseId === null) return
@@ -149,35 +158,55 @@ export default function App(){
             </header>
 
             {gameOver ? (
-              <EndPanel
-                tookDeal={dealTaken === true}
-                offerAccepted={offerHistory[offerHistory.length - 1]}
-                playerAmount={revealPlayerCase()}
-                onNewGame={() => reset()}
-                onSubmitScore={submitScore}
-              />
-            ) : (
-              <motion.div
-                className="grid grid-cols-4 sm:grid-cols-6 gap-3"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.05 }}
-              >
-                {cases.map((c) => {
-                  const isPlayer = c.id === playerCaseId
-                  return (
-                    <CaseButton
-                        key={c.id}
-                        id={c.id}
-                      amount={c.amount}
-                        opened={c.opened}
-                      isPlayer={isPlayer}
-                      onClick={() => onCaseClick(c)}
-                    />
-                  )
-                })}
-              </motion.div>
-            )}
+  <EndPanel
+    tookDeal={dealTaken === true}
+    offerAccepted={offerHistory[offerHistory.length - 1]}
+    playerAmount={revealPlayerCase()}
+    onNewGame={() => reset()}
+    onSubmitScore={submitScore}
+  />
+) : (
+  <>
+    {canSwapFinalTwo && (
+      <div className="glass rounded-2xl p-4 mb-2 shadow-sm">
+        <div className="flex items-center justify-between gap-3">
+          <div className="font-semibold">Final two cases — swap your case?</div>
+          <div className="flex gap-2">
+            <button
+              className="btn-ghost"
+              onClick={handleSwapCases}
+              aria-label="Swap cases"
+            >
+              Swap cases
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+
+    <motion.div
+      className="grid grid-cols-4 sm:grid-cols-6 gap-3"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.05 }}
+    >
+      {cases.map((c) => {
+        const isPlayer = c.id === playerCaseId
+        return (
+          <CaseButton
+            key={c.id}
+            id={c.id}
+            amount={c.amount}
+            opened={c.opened}
+            isPlayer={isPlayer}
+            onClick={() => onCaseClick(c)}
+          />
+        )
+      })}
+    </motion.div>
+  </>
+)}
+
           </div>
 
           <aside className="sticky top-2 space-y-4">

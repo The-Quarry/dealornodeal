@@ -152,7 +152,14 @@ export default function App(){
                 <p className="text-sm text-neutral-700">By The Quarry.</p>
               </div>
               <div className="flex items-center gap-2">
-                <button className="btn-ghost" onClick={() => reset(seed)} title="Replay with same layout">Replay seed</button>
+              <button
+                className="btn-ghost"
+                onClick={() => reset(seed)}
+                title="Start over with the same case positions"
+                aria-label="Replay layout"
+              >
+                Replay same layout
+              </button>
                 <button className="btn-primary" onClick={() => reset()}>New game</button>
               </div>
             </header>

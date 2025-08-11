@@ -27,8 +27,8 @@ export function CaseButton({ id, amount, opened, isPlayer, onClick }: Props) {
       disabled={disabled}
       aria-label={
         opened
-          ? \`Case \${id} contains \${fmtGBP(amount)}\`
-          : \`Open case \${id}\`
+          ? `Case ${id} contains ${fmtGBP(amount)}`
+          : `Open case ${id}`
       }
       className="relative h-24 [perspective:1000px] focus:outline-none"
     >

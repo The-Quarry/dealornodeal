@@ -9,3 +9,39 @@
 .btn { @apply px-4 py-2 rounded-xl font-semibold shadow-sm; }
 .btn-primary { @apply btn bg-black text-white hover:bg-black/90; }
 .btn-ghost { @apply btn border bg-white hover:bg-neutral-50; }
+
+/* --- 3D flip helpers --- */
+.preserve-3d { transform-style: preserve-3d; }
+.backface-hidden { backface-visibility: hidden; }
+
+/* --- Briefcase look --- */
+.briefcase-body {
+  @apply rounded-2xl border-2 shadow-md bg-gradient-to-b from-amber-200 to-amber-300 border-amber-600;
+}
+.briefcase-handle {
+  @apply absolute -top-3 left-1/2 -translate-x-1/2 w-14 h-6 rounded-b-xl bg-amber-700 border border-amber-800;
+}
+.briefcase-latch {
+  @apply absolute top-2 w-5 h-2 bg-amber-800/60 rounded;
+}
+.briefcase-plate {
+  @apply inline-flex items-center justify-center px-3 py-1 rounded-lg bg-amber-50 border border-amber-300 shadow;
+}
+
+/* --- 3D flip helpers --- */
+.preserve-3d { transform-style: preserve-3d; }
+.backface-hidden { backface-visibility: hidden; }
+
+/* --- Briefcase look --- */
+.briefcase-body {
+  @apply rounded-2xl border-2 shadow-md bg-gradient-to-b from-amber-200 to-amber-300 border-amber-600;
+}
+.briefcase-handle {
+  @apply absolute -top-3 left-1/2 -translate-x-1/2 w-14 h-6 rounded-b-xl bg-amber-700 border border-amber-800;
+}
+.briefcase-latch {
+  @apply absolute top-2 w-5 h-2 bg-amber-800/60 rounded;
+}
+.briefcase-plate {
+  @apply inline-flex items-center justify-center px-3 py-1 rounded-lg bg-amber-50 border border-amber-300 shadow;
+}

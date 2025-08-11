@@ -169,7 +169,8 @@ export default function App(){
                     <CaseButton
                       key={c.id}
                       id={c.id}
-                      opened={c.opened}
+                      amount={c.amount}
+                        opened={c.opened}
                       isPlayer={isPlayer}
                       onClick={() => onCaseClick(c)}
                     />

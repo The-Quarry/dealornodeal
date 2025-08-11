@@ -25,6 +25,7 @@ export default function App(){
   const [dealTaken, setDealTaken] = useState<boolean | null>(null)
   const [leaderboard, setLeaderboard] = useState<ScoreRow[]>([])
   const [startTime] = useState<number>(() => Date.now())
+  const [resetNonce, setResetNonce] = useState(0);
   function handleSwapCases() {
     const other = cases.find(x => !x.opened && x.id !== playerCaseId);
     if (other) {
@@ -55,7 +56,7 @@ export default function App(){
     setOfferHistory([])
     setLastOpenedThisRound([])
     setDealTaken(null)
-  }, [seed])
+  }, [seed,resetNonce])
 
   const remainingAmounts = useMemo(
     () => cases.filter((c) => !c.opened && c.id !== playerCaseId).map((c) => c.amount),
@@ -120,8 +121,12 @@ export default function App(){
   }
 
   function reset(newSeed?: number) {
-    setSeed(newSeed ?? Math.floor(Math.random() * 1e9))
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    if (typeof newSeed === "number" && newSeed === seed) {
+      setResetNonce(n => n + 1);     // force rebuild with same layout
+    } else {
+      setSeed(newSeed ?? Math.floor(Math.random() * 1e9));
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
   const amountsActive = new Set<number>([...remainingAmounts, ...(playerCase ? [playerCase.amount] : [])])

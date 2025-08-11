@@ -1,0 +1,11 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.glass {
+  @apply bg-white/70 backdrop-blur-md border border-white/50;
+}
+.btn { @apply px-4 py-2 rounded-xl font-semibold shadow-sm; }
+.btn-primary { @apply btn bg-black text-white hover:bg-black/90; }
+.btn-ghost { @apply btn border bg-white hover:bg-neutral-50; }

@@ -140,7 +140,7 @@ export default function App(){
             <header className="glass rounded-2xl p-4 sm:p-5 flex items-center justify-between shadow-sm">
               <div>
                 <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Deal or No Deal</h1>
-                <p className="text-sm text-neutral-700">GBP mode with a global leaderboard.</p>
+                <p className="text-sm text-neutral-700">By The Quarry.</p>
               </div>
               <div className="flex items-center gap-2">
                 <button className="btn-ghost" onClick={() => reset(seed)} title="Replay with same layout">Replay seed</button>
@@ -167,8 +167,9 @@ export default function App(){
                   const isPlayer = c.id === playerCaseId
                   return (
                     <CaseButton
-                      key={c.id}
-                      id={c.id}
+                        key={c.id}
+                        id={c.id}
+                        amount={c.amount}
                       amount={c.amount}
                         opened={c.opened}
                       isPlayer={isPlayer}

@@ -12,16 +12,19 @@ type Props = {
 
 export function CaseButton({ id, amount, opened, isPlayer, onClick }: Props) {
   // High threshold: £100,000+ shows red reveal
-  const isHigh = amount >= 100000;
+  const isHigh = amount >= 100_000;
   const disabled = opened || isPlayer;
 
-  // Slightly smaller font for large amounts to avoid wrapping
-  const amountClass =
-    amount >= 100000 ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl";
+  // Build label once and size text based on length so it never spills
+  const label = fmtGBP(amount);
+  let amountClass = "text-2xl sm:text-3xl";
+  if (label.length >= 13) {
+    amountClass = "text-base sm:text-lg";
+  } else if (label.length >= 10) {
+    amountClass = "text-xl sm:text-2xl";
+  }
 
-  const aria = opened
-    ? "Case " + id + " contains " + fmtGBP(amount)
-    : "Open case " + id;
+  const aria = opened ? `Case ${id} contains ${label}` : `Open case ${id}`;
 
   return (
     <button
@@ -43,12 +46,9 @@ export function CaseButton({ id, amount, opened, isPlayer, onClick }: Props) {
             (isPlayer && !opened ? " player" : "")
           }
         >
-          {/* Handle */}
           <div className="briefcase-handle" />
-          {/* Latches */}
           <div className="briefcase-latch left-3" />
           <div className="briefcase-latch right-3" />
-          {/* Number plate (no #) */}
           <div className="briefcase-plate text-lg font-extrabold tracking-wide">
             {id}
           </div>
@@ -67,11 +67,12 @@ export function CaseButton({ id, amount, opened, isPlayer, onClick }: Props) {
           }
           style={{ transform: "rotateY(180deg)" }}
         >
-          <div className={"briefcase-amount font-extrabold " + amountClass}>
-            {fmtGBP(amount)}
+          <div className={"briefcase-amount font-extrabold leading-tight px-2 whitespace-nowrap " + amountClass}>
+            {label}
           </div>
         </div>
       </motion.div>
     </button>
   );
 }
+

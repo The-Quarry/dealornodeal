@@ -11,16 +11,19 @@ type Props = {
 };
 
 export function CaseButton({ id, amount, opened, isPlayer, onClick }: Props) {
-  // High threshold: £100,000+ shows red reveal
+  // High threshold: £100,000+ shows RED reveal; lower shows BLUE
   const isHigh = amount >= 100_000;
   const disabled = opened || isPlayer;
 
-  // Build label once and size text based on length so it never spills
+  // Build label once
   const label = fmtGBP(amount);
+
+  // Scale text so big values fit on the briefcase
+  // <= £9,999: largest, £10k–£750k: medium, £1,000,000: smallest
   let amountClass = "text-2xl sm:text-3xl";
-  if (label.length >= 13) {
+  if (amount >= 1_000_000) {
     amountClass = "text-base sm:text-lg";
-  } else if (label.length >= 10) {
+  } else if (amount >= 10_000) {
     amountClass = "text-xl sm:text-2xl";
   }
 
@@ -46,12 +49,16 @@ export function CaseButton({ id, amount, opened, isPlayer, onClick }: Props) {
             (isPlayer && !opened ? " player" : "")
           }
         >
+          {/* Handle & latches */}
           <div className="briefcase-handle" />
           <div className="briefcase-latch left-3" />
           <div className="briefcase-latch right-3" />
+
+          {/* Number plate (no #) */}
           <div className="briefcase-plate text-lg font-extrabold tracking-wide">
             {id}
           </div>
+
           {isPlayer && !opened && (
             <span className="absolute -top-2 -right-2 text-[10px] px-2 py-1 rounded-full bg-emerald-600 text-white shadow">
               Your case
@@ -67,7 +74,7 @@ export function CaseButton({ id, amount, opened, isPlayer, onClick }: Props) {
           }
           style={{ transform: "rotateY(180deg)" }}
         >
-          <div className={"briefcase-amount font-extrabold leading-tight px-2 whitespace-nowrap " + amountClass}>
+          <div className={"briefcase-amount font-extrabold leading-tight tracking-tight px-2 whitespace-nowrap " + amountClass}>
             {label}
           </div>
         </div>
@@ -75,4 +82,3 @@ export function CaseButton({ id, amount, opened, isPlayer, onClick }: Props) {
     </button>
   );
 }
-

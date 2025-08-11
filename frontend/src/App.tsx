@@ -169,7 +169,6 @@ export default function App(){
                     <CaseButton
                         key={c.id}
                         id={c.id}
-                        amount={c.amount}
                       amount={c.amount}
                         opened={c.opened}
                       isPlayer={isPlayer}

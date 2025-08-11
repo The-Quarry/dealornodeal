@@ -167,22 +167,28 @@ export default function App(){
   />
 ) : (
   <>
-    {canSwapFinalTwo && (
-      <div className="glass rounded-2xl p-4 mb-2 shadow-sm">
-        <div className="flex items-center justify-between gap-3">
-          <div className="font-semibold">Final two cases — swap your case?</div>
-          <div className="flex gap-2">
-            <button
-              className="btn-ghost"
-              onClick={handleSwapCases}
-              aria-label="Swap cases"
-            >
-              Swap cases
-            </button>
+      {canSwapFinalTwo && (
+        <div className="bg-yellow-200 border-2 border-yellow-500 rounded-2xl p-4 mb-4 shadow-lg animate-bounce">
+          <div className="flex items-center justify-between gap-3">
+            <div className="font-extrabold text-lg text-yellow-900">
+              Final two cases — swap your case?
+            </div>
+            <div className="flex gap-2">
+              <button
+                className="btn-ghost font-bold ring-2 ring-yellow-500 hover:bg-yellow-100"
+                onClick={handleSwapCases}
+                aria-label="Swap cases"
+              >
+                Swap cases
+              </button>
+            </div>
+          </div>
+          <div className="text-xs text-yellow-900/80 mt-1">
+            Your chosen case will switch to the other remaining one.
           </div>
         </div>
-      </div>
-    )}
+      )}
+
 
     <motion.div
       className="grid grid-cols-4 sm:grid-cols-6 gap-3"
